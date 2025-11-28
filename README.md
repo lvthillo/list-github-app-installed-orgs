@@ -78,7 +78,8 @@ jobs:
         org: ${{ fromJson(needs.get-organizations.outputs.orgs) }}
     steps:
       - name: Process Organization
-        run: echo "Processing organization: ${{ matrix.org }}"
+        run: |
+          echo "Processing organization: ${{ matrix.org }}"
 ```
 
 ## Inputs

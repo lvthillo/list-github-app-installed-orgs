@@ -38014,7 +38014,7 @@ function createOctokitClient(appId, privateKey) {
  */
 async function getOrganizationInstallations(octokit) {
     // Retrieve all installations for the GitHub App
-    const { data: installations } = await octokit.apps.listInstallations();
+    const { data: installations } = await octokit.rest.apps.listInstallations();
     // Log total installation count
     coreExports.info(`Found ${installations.length} total installations`);
     // Add debug logging for detailed installation information

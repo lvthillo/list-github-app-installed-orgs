@@ -55,8 +55,10 @@ interface Installation {
  * Type definition for Octokit with apps API
  */
 interface OctokitWithApps {
-  apps: {
-    listInstallations: () => Promise<{ data: Installation[] }>
+  rest: {
+    apps: {
+      listInstallations: () => Promise<{ data: Installation[] }>
+    }
   }
 }
 
@@ -72,7 +74,7 @@ export async function getOrganizationInstallations(
   // Retrieve all installations for the GitHub App
   const { data: installations } = await (
     octokit as OctokitWithApps
-  ).apps.listInstallations()
+  ).rest.apps.listInstallations()
 
   // Log total installation count
   core.info(`Found ${installations.length} total installations`)

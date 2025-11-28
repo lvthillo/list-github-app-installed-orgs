@@ -20,8 +20,10 @@ const fc = await import('fast-check')
 
 // Type for mock Octokit client
 interface MockOctokit {
-  apps: {
-    listInstallations: jest.Mock
+  rest: {
+    apps: {
+      listInstallations: jest.Mock
+    }
   }
 }
 
@@ -174,10 +176,12 @@ describe('installation count logging', () => {
           ),
           async (installations) => {
             const mockOctokit = {
-              apps: {
-                listInstallations: jest.fn().mockResolvedValue({
-                  data: installations
-                })
+              rest: {
+                apps: {
+                  listInstallations: jest.fn().mockResolvedValue({
+                    data: installations
+                  })
+                }
               }
             } as unknown as MockOctokit
 
@@ -225,10 +229,12 @@ describe('organization count logging', () => {
           ),
           async (installations) => {
             const mockOctokit = {
-              apps: {
-                listInstallations: jest.fn().mockResolvedValue({
-                  data: installations
-                })
+              rest: {
+                apps: {
+                  listInstallations: jest.fn().mockResolvedValue({
+                    data: installations
+                  })
+                }
               }
             } as unknown as MockOctokit
 
@@ -303,10 +309,12 @@ describe('output and logging', () => {
       ]
 
       const mockOctokit = {
-        apps: {
-          listInstallations: jest.fn().mockResolvedValue({
-            data: mockInstallations
-          })
+        rest: {
+          apps: {
+            listInstallations: jest.fn().mockResolvedValue({
+              data: mockInstallations
+            })
+          }
         }
       } as unknown as MockOctokit
 
@@ -348,17 +356,19 @@ describe('getOrganizationInstallations', () => {
       ]
 
       const mockOctokit = {
-        apps: {
-          listInstallations: jest.fn().mockResolvedValue({
-            data: mockInstallations
-          })
+        rest: {
+          apps: {
+            listInstallations: jest.fn().mockResolvedValue({
+              data: mockInstallations
+            })
+          }
         }
       } as unknown as MockOctokit
 
       const result = await getOrganizationInstallations(mockOctokit)
 
       expect(result).toEqual(['org1', 'org2'])
-      expect(mockOctokit.apps.listInstallations).toHaveBeenCalledTimes(1)
+      expect(mockOctokit.rest.apps.listInstallations).toHaveBeenCalledTimes(1)
     })
 
     it('filters mixed user and organization installations', async () => {
@@ -382,10 +392,12 @@ describe('getOrganizationInstallations', () => {
       ]
 
       const mockOctokit = {
-        apps: {
-          listInstallations: jest.fn().mockResolvedValue({
-            data: mockInstallations
-          })
+        rest: {
+          apps: {
+            listInstallations: jest.fn().mockResolvedValue({
+              data: mockInstallations
+            })
+          }
         }
       } as unknown as MockOctokit
 
@@ -398,17 +410,19 @@ describe('getOrganizationInstallations', () => {
 
     it('returns empty array when no installations exist', async () => {
       const mockOctokit = {
-        apps: {
-          listInstallations: jest.fn().mockResolvedValue({
-            data: []
-          })
+        rest: {
+          apps: {
+            listInstallations: jest.fn().mockResolvedValue({
+              data: []
+            })
+          }
         }
       } as unknown as MockOctokit
 
       const result = await getOrganizationInstallations(mockOctokit)
 
       expect(result).toEqual([])
-      expect(mockOctokit.apps.listInstallations).toHaveBeenCalledTimes(1)
+      expect(mockOctokit.rest.apps.listInstallations).toHaveBeenCalledTimes(1)
     })
 
     it('handles installations with null account field', async () => {
@@ -428,10 +442,12 @@ describe('getOrganizationInstallations', () => {
       ]
 
       const mockOctokit = {
-        apps: {
-          listInstallations: jest.fn().mockResolvedValue({
-            data: mockInstallations
-          })
+        rest: {
+          apps: {
+            listInstallations: jest.fn().mockResolvedValue({
+              data: mockInstallations
+            })
+          }
         }
       } as unknown as MockOctokit
 
@@ -470,10 +486,12 @@ describe('getOrganizationInstallations', () => {
           async (installations) => {
             // Create a mock Octokit client
             const mockOctokit = {
-              apps: {
-                listInstallations: jest.fn().mockResolvedValue({
-                  data: installations
-                })
+              rest: {
+                apps: {
+                  listInstallations: jest.fn().mockResolvedValue({
+                    data: installations
+                  })
+                }
               }
             } as unknown as MockOctokit
 
@@ -531,10 +549,12 @@ describe('getOrganizationInstallations', () => {
           async (orgInstallations) => {
             // Create a mock Octokit client
             const mockOctokit = {
-              apps: {
-                listInstallations: jest.fn().mockResolvedValue({
-                  data: orgInstallations
-                })
+              rest: {
+                apps: {
+                  listInstallations: jest.fn().mockResolvedValue({
+                    data: orgInstallations
+                  })
+                }
               }
             } as unknown as MockOctokit
 
