@@ -1,14 +1,16 @@
 # Test files with mock private keys (CI paths)
 /github/workspace/__tests__/main.test.ts:private-key:49
 /github/workspace/__tests__/main.test.ts:private-key:62
+/github/workspace/__tests__/main.test.ts:private-key:75
 /github/workspace/__tests__/main.test.ts:private-key:100
+/github/workspace/__tests__/main.test.ts:private-key:182
 
 # Test files with mock private keys (local paths)
 __tests__/main.test.ts:private-key:49
 __tests__/main.test.ts:private-key:62
+__tests__/main.test.ts:private-key:75
 __tests__/main.test.ts:private-key:100
-__tests__/main.test.ts:generic-api-key
-__tests__/main.test.ts:private-key
+__tests__/main.test.ts:private-key:182
 
 # Bundled code (also excluded via FILTER_REGEX_EXCLUDE in CI)
 /github/workspace/dist/index.js:private-key:37115
