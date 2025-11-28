@@ -212,5 +212,5 @@ Releases are managed using the `script/release` helper:
 
 ## Code of Conduct
 
-Be respectful and constructive in all interactions. We're all here to build
+Be respectful and constructive in all interactions. We are all here to build
 something useful together.

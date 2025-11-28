@@ -1,0 +1,2 @@
+# Ignore mock private key in example env file
+.env.example:INPUT_PRIVATE_KEY

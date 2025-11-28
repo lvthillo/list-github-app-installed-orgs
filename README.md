@@ -93,7 +93,7 @@ jobs:
 
 ## Setting Up Secrets
 
-You'll need to store your GitHub App credentials as secrets:
+You will need to store your GitHub App credentials as secrets:
 
 1. Go to your repository Settings > Secrets and variables > Actions
 2. Add two secrets:
@@ -106,7 +106,7 @@ To find your GitHub App credentials:
 1. Navigate to your GitHub App settings (Settings > Developer settings > GitHub
    Apps)
 2. Note the App ID at the top of the page
-3. Generate a private key if you haven't already (scroll down to "Private keys"
+3. Generate a private key if you have not already (scroll down to "Private keys"
    section)
 
 ## Requirements

@@ -47,9 +47,9 @@ jobs:
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
-    # This test requires real GitHub App credentials
-    # Uncomment and configure secrets to enable
-    if: false
+    # Skip this job if TEST_APP_ID secret is not configured
+    # To enable: add TEST_APP_ID and TEST_APP_PRIVATE_KEY secrets
+    if: secrets.TEST_APP_ID != ''
 
     steps:
       - name: Checkout
