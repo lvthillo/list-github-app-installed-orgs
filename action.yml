@@ -1,23 +1,27 @@
-name: The name of your action here
-description: Provide a description here
+name: GitHub App Organization List
+description:
+  Retrieves all organizations where a GitHub Enterprise App is installed
 author: Your name or organization here
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: heart
-  color: red
+  icon: git-branch
+  color: blue
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  app-id:
+    description: The GitHub App ID
     required: true
-    default: '1000'
+  private-key:
+    description: The GitHub App private key in PEM format
+    required: true
 
 # Define your outputs here.
 outputs:
-  time:
-    description: Your output description here
+  organizations:
+    description:
+      JSON array of organization login names where the app is installed
 
 runs:
   using: node24
