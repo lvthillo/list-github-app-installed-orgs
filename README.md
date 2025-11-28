@@ -84,10 +84,10 @@ jobs:
 
 ## Inputs
 
-| Input         | Description                                    | Required |
-| ------------- | ---------------------------------------------- | -------- |
-| `app-id`      | The GitHub App ID (found in your app settings) | Yes      |
-| `private-key` | The GitHub App private key in PEM format       | Yes      |
+| Input         | Description                                                                                | Required |
+| ------------- | ------------------------------------------------------------------------------------------ | -------- |
+| `app-id`      | The GitHub App ID (found in your app settings)                                             | Yes      |
+| `private-key` | The GitHub App private key in PEM format (supports both PKCS#1 and PKCS#8 formats)        | Yes      |
 
 ## Outputs
 
@@ -112,6 +112,20 @@ To find your GitHub App credentials:
 1. Note the App ID at the top of the page
 1. Generate a private key if you have not already (scroll down to "Private keys"
    section)
+
+### Private Key Format
+
+This action supports both PKCS#1 and PKCS#8 private key formats:
+
+- **PKCS#8** (recommended): `-----BEGIN PRIVATE KEY-----`
+- **PKCS#1** (legacy): `-----BEGIN RSA PRIVATE KEY-----`
+
+The action automatically converts PKCS#1 keys to PKCS#8 format if needed. If you
+need to manually convert your key, use:
+
+```bash
+openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in old-key.pem -out new-key.pem
+```
 
 ## Requirements
 

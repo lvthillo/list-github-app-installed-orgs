@@ -9,8 +9,13 @@ jest.unstable_mockModule('@actions/core', () => core)
 
 // The module being tested should be imported dynamically. This ensures that the
 // mocks are used in place of any actual dependencies.
-const { getInputs, createOctokitClient, getOrganizationInstallations, run } =
-  await import('../src/main.js')
+const {
+  convertPrivateKeyFormat,
+  getInputs,
+  createOctokitClient,
+  getOrganizationInstallations,
+  run
+} = await import('../src/main.js')
 
 // Import Octokit for type checking and mocking
 const { Octokit } = await import('octokit')
@@ -26,6 +31,45 @@ interface MockOctokit {
     }
   }
 }
+
+describe('convertPrivateKeyFormat', () => {
+  it('converts PKCS#1 format to PKCS#8 format', () => {
+    const pkcs1Key =
+      '-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA...\n-----END RSA PRIVATE KEY-----'
+    const result = convertPrivateKeyFormat(pkcs1Key)
+
+    expect(result).toBe(
+      '-----BEGIN PRIVATE KEY-----\nMIIEpAIBAAKCAQEA...\n-----END PRIVATE KEY-----'
+    )
+    expect(result).not.toContain('RSA PRIVATE KEY')
+    expect(result).toContain('BEGIN PRIVATE KEY')
+  })
+
+  it('leaves PKCS#8 format unchanged', () => {
+    const pkcs8Key =
+      '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASC...\n-----END PRIVATE KEY-----'
+    const result = convertPrivateKeyFormat(pkcs8Key)
+
+    expect(result).toBe(pkcs8Key)
+    expect(result).toContain('BEGIN PRIVATE KEY')
+  })
+
+  it('handles multi-line PKCS#1 keys correctly', () => {
+    const pkcs1Key = `-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA1234567890abcdef
+ghijklmnopqrstuvwxyz1234567890ab
+cdefghijklmnopqrstuvwxyz
+-----END RSA PRIVATE KEY-----`
+
+    const result = convertPrivateKeyFormat(pkcs1Key)
+
+    expect(result).toContain('BEGIN PRIVATE KEY')
+    expect(result).toContain('END PRIVATE KEY')
+    expect(result).not.toContain('RSA PRIVATE KEY')
+    // Verify the key content is preserved
+    expect(result).toContain('MIIEpAIBAAKCAQEA1234567890abcdef')
+  })
+})
 
 describe('getInputs', () => {
   let originalEnv: NodeJS.ProcessEnv
@@ -48,15 +92,28 @@ describe('getInputs', () => {
   it('reads valid inputs from environment variables', () => {
     process.env.INPUT_APP_ID = '12345'
     process.env.INPUT_PRIVATE_KEY =
+      '-----BEGIN PRIVATE KEY-----\ntest\n-----END PRIVATE KEY-----'
+
+    const result = getInputs()
+
+    expect(result).toEqual({
+      appId: '12345',
+      privateKey: '-----BEGIN PRIVATE KEY-----\ntest\n-----END PRIVATE KEY-----'
+    })
+  })
+
+  it('converts PKCS#1 private key to PKCS#8 format', () => {
+    process.env.INPUT_APP_ID = '12345'
+    process.env.INPUT_PRIVATE_KEY =
       '-----BEGIN RSA PRIVATE KEY-----\ntest\n-----END RSA PRIVATE KEY-----'
 
     const result = getInputs()
 
     expect(result).toEqual({
       appId: '12345',
-      privateKey:
-        '-----BEGIN RSA PRIVATE KEY-----\ntest\n-----END RSA PRIVATE KEY-----'
+      privateKey: '-----BEGIN PRIVATE KEY-----\ntest\n-----END PRIVATE KEY-----'
     })
+    expect(result.privateKey).not.toContain('RSA PRIVATE KEY')
   })
 
   it('throws error when APP_ID is missing', () => {
@@ -81,6 +138,18 @@ describe('getInputs', () => {
     delete process.env.INPUT_PRIVATE_KEY
 
     expect(() => getInputs()).toThrow('Input required and not supplied: app-id')
+  })
+
+  it('handles PKCS#8 format without conversion', () => {
+    process.env.INPUT_APP_ID = '67890'
+    process.env.INPUT_PRIVATE_KEY =
+      '-----BEGIN PRIVATE KEY-----\nvalid-key\n-----END PRIVATE KEY-----'
+
+    const result = getInputs()
+
+    expect(result.privateKey).toBe(
+      '-----BEGIN PRIVATE KEY-----\nvalid-key\n-----END PRIVATE KEY-----'
+    )
   })
 })
 

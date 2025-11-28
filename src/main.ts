@@ -3,6 +3,26 @@ import { Octokit } from 'octokit'
 import { createAppAuth } from '@octokit/auth-app'
 
 /**
+ * Converts a PKCS#1 private key to PKCS#8 format if needed.
+ *
+ * @param privateKey - The private key in PEM format
+ * @returns The private key in PKCS#8 format
+ */
+export function convertPrivateKeyFormat(privateKey: string): string {
+  // Check if the key is in PKCS#1 format (RSA PRIVATE KEY)
+  if (privateKey.includes('BEGIN RSA PRIVATE KEY')) {
+    core.info('Converting private key from PKCS#1 to PKCS#8 format')
+    // Replace the header and footer to convert to PKCS#8 format
+    return privateKey
+      .replace('-----BEGIN RSA PRIVATE KEY-----', '-----BEGIN PRIVATE KEY-----')
+      .replace('-----END RSA PRIVATE KEY-----', '-----END PRIVATE KEY-----')
+  }
+  
+  // Key is already in PKCS#8 format or another format
+  return privateKey
+}
+
+/**
  * Retrieves and validates the required inputs for the action.
  *
  * @returns An object containing the validated appId and privateKey
@@ -10,7 +30,10 @@ import { createAppAuth } from '@octokit/auth-app'
  */
 export function getInputs(): { appId: string; privateKey: string } {
   const appId = core.getInput('app-id', { required: true })
-  const privateKey = core.getInput('private-key', { required: true })
+  let privateKey = core.getInput('private-key', { required: true })
+  
+  // Convert key format if needed
+  privateKey = convertPrivateKeyFormat(privateKey)
 
   return { appId, privateKey }
 }
