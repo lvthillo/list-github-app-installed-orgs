@@ -44,25 +44,24 @@ jobs:
         id: npm-ci-test
         run: npm run ci-test
 
-  test-action:
-    name: GitHub Actions Test
-    runs-on: ubuntu-latest
-    # Skip this job if TEST_APP_ID secret is not configured
-    # To enable: add TEST_APP_ID and TEST_APP_PRIVATE_KEY secrets
-    if: secrets.TEST_APP_ID != ''
-
-    steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v5
-
-      - name: Test Local Action
-        id: test-action
-        uses: ./
-        with:
-          app-id: ${{ secrets.TEST_APP_ID }}
-          private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
-
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.organizations }}"
+  # Uncomment this job to test the action with real GitHub App credentials
+  # You'll need to add TEST_APP_ID and TEST_APP_PRIVATE_KEY secrets first
+  # test-action:
+  #   name: GitHub Actions Test
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Checkout
+  #       id: checkout
+  #       uses: actions/checkout@v5
+  #
+  #     - name: Test Local Action
+  #       id: test-action
+  #       uses: ./
+  #       with:
+  #         app-id: ${{ secrets.TEST_APP_ID }}
+  #         private-key: ${{ secrets.TEST_APP_PRIVATE_KEY }}
+  #
+  #     - name: Print Output
+  #       id: output
+  #       run: echo "${{ steps.test-action.outputs.organizations }}"
