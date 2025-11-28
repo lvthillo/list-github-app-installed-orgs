@@ -1,2 +1,2 @@
-# Ignore mock private key in example env file
-.env.example:INPUT_PRIVATE_KEY
+c5ab46af0c17db5e5853c71303324388fe3cab32:__tests__/main.test.ts:private-key:45
+c5ab46af0c17db5e5853c71303324388fe3cab32:__tests__/main.test.ts:private-key:89

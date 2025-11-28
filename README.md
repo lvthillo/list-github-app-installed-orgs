@@ -1,5 +1,8 @@
 # List GitHub App Installed Organizations
 
+[![CI](https://github.com/lvthillo/list-github-app-installed-orgs/actions/workflows/ci.yml/badge.svg)](https://github.com/lvthillo/list-github-app-installed-orgs/actions/workflows/ci.yml)
+[![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
+
 A GitHub Action that retrieves all organizations where a GitHub App is
 installed. Perfect for automating workflows that need to discover and operate
 across multiple organizations managed by your app.
@@ -96,7 +99,7 @@ jobs:
 You will need to store your GitHub App credentials as secrets:
 
 1. Go to your repository Settings > Secrets and variables > Actions
-2. Add two secrets:
+1. Add two secrets:
    - `APP_ID`: Your GitHub App ID
    - `APP_PRIVATE_KEY`: Your GitHub App private key (the entire PEM file
      contents)
@@ -105,8 +108,8 @@ To find your GitHub App credentials:
 
 1. Navigate to your GitHub App settings (Settings > Developer settings > GitHub
    Apps)
-2. Note the App ID at the top of the page
-3. Generate a private key if you have not already (scroll down to "Private keys"
+1. Note the App ID at the top of the page
+1. Generate a private key if you have not already (scroll down to "Private keys"
    section)
 
 ## Requirements
