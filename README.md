@@ -45,7 +45,8 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Display Organizations
-        run: echo 'Organizations:' '${{ steps.get-orgs.outputs.organizations }}'
+        run: |
+          echo "Organizations: ${{ steps.get-orgs.outputs.organizations }}"
 ```
 
 ### Matrix Strategy Example
