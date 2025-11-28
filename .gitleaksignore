@@ -1,2 +1,9 @@
-c5ab46af0c17db5e5853c71303324388fe3cab32:__tests__/main.test.ts:private-key:45
-c5ab46af0c17db5e5853c71303324388fe3cab32:__tests__/main.test.ts:private-key:89
+# Test files with mock private keys
+/github/workspace/__tests__/main.test.ts:private-key:49
+/github/workspace/__tests__/main.test.ts:private-key:62
+/github/workspace/__tests__/main.test.ts:private-key:100
+
+# Bundled code (also excluded via FILTER_REGEX_EXCLUDE in CI)
+/github/workspace/dist/index.js:private-key:37115
+/github/workspace/dist/index.js:private-key:37515
+/github/workspace/dist/index.js.map:private-key:1

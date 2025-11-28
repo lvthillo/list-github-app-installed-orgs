@@ -19,19 +19,19 @@ with development.
    cd <repository-name>
    ```
 
-2. Install dependencies
+1. Install dependencies
 
    ```bash
    npm install
    ```
 
-3. Build the action
+1. Build the action
 
    ```bash
    npm run bundle
    ```
 
-4. Run tests
+1. Run tests
 
    ```bash
    npm test
@@ -56,11 +56,11 @@ with development.
    git checkout -b feature/your-feature-name
    ```
 
-2. Make your changes in the `src/` directory
+1. Make your changes in the `src/` directory
 
-3. Add or update tests in `__tests__/`
+1. Add or update tests in `__tests__/`
 
-4. Run the full build and test suite
+1. Run the full build and test suite
 
    ```bash
    npm run all
@@ -83,16 +83,16 @@ You can test the action locally without pushing to GitHub:
    cp .env.example .env
    ```
 
-2. Edit `.env` and add your GitHub App credentials:
+1. Edit `.env` and add your GitHub App credentials:
 
-   ```
+   ```env
    INPUT_APP_ID=your-app-id
    INPUT_PRIVATE_KEY=-----BEGIN RSA PRIVATE KEY-----
    your-private-key-content
    -----END RSA PRIVATE KEY-----
    ```
 
-3. Run the action locally
+1. Run the action locally
 
    ```bash
    npm run local-action
@@ -145,20 +145,20 @@ This project uses TypeScript. Ensure your code:
    npm run all
    ```
 
-2. Commit your changes
+1. Commit your changes
 
    ```bash
    git add .
    git commit -m "Description of your changes"
    ```
 
-3. Push to your fork
+1. Push to your fork
 
    ```bash
    git push origin feature/your-feature-name
    ```
 
-4. Create a pull request
+1. Create a pull request
    - Provide a clear description of the changes
    - Reference any related issues
    - Ensure CI checks pass
@@ -195,14 +195,14 @@ export RUNNER_DEBUG=1
 Releases are managed using the `script/release` helper:
 
 1. Update version in `package.json`
-2. Run the release script
+1. Run the release script
 
    ```bash
    ./script/release
    ```
 
-3. Follow the prompts to create and push tags
-4. Create a GitHub release with release notes
+1. Follow the prompts to create and push tags
+1. Create a GitHub release with release notes
 
 ## Getting Help
 
