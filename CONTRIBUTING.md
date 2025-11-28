@@ -1,6 +1,7 @@
 # Contributing to GitHub App Organization List
 
-Thanks for your interest in contributing! This guide will help you get started with development.
+Thanks for your interest in contributing! This guide will help you get started
+with development.
 
 ## Development Setup
 
@@ -115,11 +116,13 @@ You can test the action locally without pushing to GitHub:
 
 ### Formatting
 
-This project uses Prettier for code formatting. Run `npm run format:write` to format all files.
+This project uses Prettier for code formatting. Run `npm run format:write` to
+format all files.
 
 ### Linting
 
-ESLint is configured to catch common issues. Run `npm run lint` to check your code.
+ESLint is configured to catch common issues. Run `npm run lint` to check your
+code.
 
 ### Testing
 
@@ -157,26 +160,28 @@ This project uses TypeScript. Ensure your code:
    ```
 
 4. Create a pull request
-
    - Provide a clear description of the changes
    - Reference any related issues
    - Ensure CI checks pass
 
 ## Building for Distribution
 
-The `dist/` directory contains the bundled JavaScript that GitHub Actions will execute. This must be updated whenever you change the source code.
+The `dist/` directory contains the bundled JavaScript that GitHub Actions will
+execute. This must be updated whenever you change the source code.
 
 ```bash
 npm run bundle
 ```
 
-Always commit the updated `dist/` directory with your changes. The CI workflow will verify that `dist/` is up to date.
+Always commit the updated `dist/` directory with your changes. The CI workflow
+will verify that `dist/` is up to date.
 
 ## Debugging
 
 ### VS Code Debugging
 
-This project includes VS Code debug configurations. See `.vscode/launch.json` for available debug targets.
+This project includes VS Code debug configurations. See `.vscode/launch.json`
+for available debug targets.
 
 ### Enable Debug Logging
 
@@ -208,4 +213,5 @@ Releases are managed using the `script/release` helper:
 
 ## Code of Conduct
 
-Be respectful and constructive in all interactions. We're all here to build something useful together.
+Be respectful and constructive in all interactions. We're all here to build
+something useful together.

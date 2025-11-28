@@ -6,25 +6,11 @@ import { createAppAuth } from '@octokit/auth-app'
  * Retrieves and validates the required inputs for the action.
  *
  * @returns An object containing the validated appId and privateKey
- * @throws Error if either INPUT_APP_ID or INPUT_PRIVATE_KEY is missing
+ * @throws Error if either app-id or private-key is missing
  */
 export function getInputs(): { appId: string; privateKey: string } {
-  const appId = process.env.INPUT_APP_ID
-  const privateKey = process.env.INPUT_PRIVATE_KEY
-
-  if (!appId && !privateKey) {
-    throw new Error(
-      'Both INPUT_APP_ID and INPUT_PRIVATE_KEY are required but were not provided'
-    )
-  }
-
-  if (!appId) {
-    throw new Error('INPUT_APP_ID is required but was not provided')
-  }
-
-  if (!privateKey) {
-    throw new Error('INPUT_PRIVATE_KEY is required but was not provided')
-  }
+  const appId = core.getInput('app-id', { required: true })
+  const privateKey = core.getInput('private-key', { required: true })
 
   return { appId, privateKey }
 }
