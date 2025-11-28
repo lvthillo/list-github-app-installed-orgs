@@ -42,7 +42,7 @@ export function convertPrivateKeyFormat(privateKey: string): string {
 export function getInputs(): { appId: string; privateKey: string } {
   const appId = core.getInput('app-id', { required: true })
   let privateKey = core.getInput('private-key', { required: true })
-  
+
   // Convert key format if needed
   privateKey = convertPrivateKeyFormat(privateKey)
 

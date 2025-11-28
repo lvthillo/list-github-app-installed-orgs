@@ -71,7 +71,8 @@ describe('convertPrivateKeyFormat', () => {
   })
 
   it('handles invalid keys gracefully', () => {
-    const invalidKey = '-----BEGIN RSA PRIVATE KEY-----\ninvalid\n-----END RSA PRIVATE KEY-----'
+    const invalidKey =
+      '-----BEGIN RSA PRIVATE KEY-----\ninvalid\n-----END RSA PRIVATE KEY-----'
     const result = convertPrivateKeyFormat(invalidKey)
 
     // Should return original key if conversion fails
@@ -100,7 +101,10 @@ describe('getInputs', () => {
   it('reads valid inputs from environment variables', async () => {
     const { generateKeyPairSync } = await import('crypto')
     const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 })
-    const pkcs8Key = privateKey.export({ type: 'pkcs8', format: 'pem' }) as string
+    const pkcs8Key = privateKey.export({
+      type: 'pkcs8',
+      format: 'pem'
+    }) as string
 
     process.env.INPUT_APP_ID = '12345'
     process.env.INPUT_PRIVATE_KEY = pkcs8Key
@@ -114,7 +118,10 @@ describe('getInputs', () => {
   it('converts PKCS#1 private key to PKCS#8 format', async () => {
     const { generateKeyPairSync } = await import('crypto')
     const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 })
-    const pkcs1Key = privateKey.export({ type: 'pkcs1', format: 'pem' }) as string
+    const pkcs1Key = privateKey.export({
+      type: 'pkcs1',
+      format: 'pem'
+    }) as string
 
     process.env.INPUT_APP_ID = '12345'
     process.env.INPUT_PRIVATE_KEY = pkcs1Key
@@ -153,7 +160,10 @@ describe('getInputs', () => {
   it('handles PKCS#8 format without conversion', async () => {
     const { generateKeyPairSync } = await import('crypto')
     const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 })
-    const pkcs8Key = privateKey.export({ type: 'pkcs8', format: 'pem' }) as string
+    const pkcs8Key = privateKey.export({
+      type: 'pkcs8',
+      format: 'pem'
+    }) as string
 
     process.env.INPUT_APP_ID = '67890'
     process.env.INPUT_PRIVATE_KEY = pkcs8Key

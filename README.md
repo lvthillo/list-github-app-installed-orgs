@@ -84,10 +84,10 @@ jobs:
 
 ## Inputs
 
-| Input         | Description                                                                                | Required |
-| ------------- | ------------------------------------------------------------------------------------------ | -------- |
-| `app-id`      | The GitHub App ID (found in your app settings)                                             | Yes      |
-| `private-key` | The GitHub App private key in PEM format (supports both PKCS#1 and PKCS#8 formats)        | Yes      |
+| Input         | Description                                                                        | Required |
+| ------------- | ---------------------------------------------------------------------------------- | -------- |
+| `app-id`      | The GitHub App ID (found in your app settings)                                     | Yes      |
+| `private-key` | The GitHub App private key in PEM format (supports both PKCS#1 and PKCS#8 formats) | Yes      |
 
 ## Outputs
 
