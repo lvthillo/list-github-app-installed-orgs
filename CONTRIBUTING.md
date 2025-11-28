@@ -44,7 +44,6 @@ with development.
 - `src/` - TypeScript source code
   - `main.ts` - Main action logic
   - `index.ts` - Entry point
-  - `wait.ts` - Utility functions
 - `__tests__/` - Jest test files
 - `dist/` - Compiled JavaScript (generated, do not edit directly)
 - `action.yml` - Action metadata and interface definition

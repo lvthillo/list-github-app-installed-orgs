@@ -26,17 +26,21 @@ interface MockOctokit {
 }
 
 describe('getInputs', () => {
-  const originalEnv = process.env
+  let originalEnv: NodeJS.ProcessEnv
 
   beforeEach(() => {
-    // Reset environment variables before each test
-    process.env = { ...originalEnv }
+    // Save a clean copy of the environment before each test
+    originalEnv = { ...process.env }
+    // Remove any INPUT_* variables that might have been set
+    delete process.env.INPUT_APP_ID
+    delete process.env.INPUT_PRIVATE_KEY
   })
 
   afterEach(() => {
     // Restore original environment
     process.env = originalEnv
-    jest.resetAllMocks()
+    // Don't reset mocks here - it clears the mock implementation
+    // jest.resetAllMocks()
   })
 
   it('reads valid inputs from environment variables', () => {
@@ -58,9 +62,7 @@ describe('getInputs', () => {
       '-----BEGIN RSA PRIVATE KEY-----\ntest\n-----END RSA PRIVATE KEY-----'
     delete process.env.INPUT_APP_ID
 
-    expect(() => getInputs()).toThrow(
-      'INPUT_APP_ID is required but was not provided'
-    )
+    expect(() => getInputs()).toThrow('Input required and not supplied: app-id')
   })
 
   it('throws error when PRIVATE_KEY is missing', () => {
@@ -68,7 +70,7 @@ describe('getInputs', () => {
     delete process.env.INPUT_PRIVATE_KEY
 
     expect(() => getInputs()).toThrow(
-      'INPUT_PRIVATE_KEY is required but was not provided'
+      'Input required and not supplied: private-key'
     )
   })
 
@@ -76,9 +78,7 @@ describe('getInputs', () => {
     delete process.env.INPUT_APP_ID
     delete process.env.INPUT_PRIVATE_KEY
 
-    expect(() => getInputs()).toThrow(
-      'Both INPUT_APP_ID and INPUT_PRIVATE_KEY are required but were not provided'
-    )
+    expect(() => getInputs()).toThrow('Input required and not supplied: app-id')
   })
 })
 
@@ -146,7 +146,7 @@ describe('JSON serialization', () => {
 
 describe('installation count logging', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
   describe('property tests', () => {
@@ -197,7 +197,7 @@ describe('installation count logging', () => {
 
 describe('organization count logging', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
   describe('property tests', () => {
@@ -253,7 +253,7 @@ describe('organization count logging', () => {
 
 describe('output and logging', () => {
   beforeEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
   describe('unit tests', () => {
@@ -566,7 +566,8 @@ describe('error handling', () => {
 
   beforeEach(() => {
     process.env = { ...originalEnv }
-    jest.resetAllMocks()
+    // Clear mock call history but keep implementation
+    jest.clearAllMocks()
   })
 
   afterEach(() => {
