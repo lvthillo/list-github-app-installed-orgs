@@ -1,7 +1,7 @@
 name: GitHub App Organization List
 description:
   Retrieves all organizations where a GitHub Enterprise App is installed
-author: Your name or organization here
+author: lvthillo
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
