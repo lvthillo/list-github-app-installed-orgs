@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import { Octokit } from 'octokit'
 import { createAppAuth } from '@octokit/auth-app'
+import { createPrivateKey } from 'crypto'
 
 /**
  * Converts a PKCS#1 private key to PKCS#8 format if needed.
@@ -12,12 +13,22 @@ export function convertPrivateKeyFormat(privateKey: string): string {
   // Check if the key is in PKCS#1 format (RSA PRIVATE KEY)
   if (privateKey.includes('BEGIN RSA PRIVATE KEY')) {
     core.info('Converting private key from PKCS#1 to PKCS#8 format')
-    // Replace the header and footer to convert to PKCS#8 format
-    return privateKey
-      .replace('-----BEGIN RSA PRIVATE KEY-----', '-----BEGIN PRIVATE KEY-----')
-      .replace('-----END RSA PRIVATE KEY-----', '-----END PRIVATE KEY-----')
+    try {
+      // Use Node.js crypto to properly convert the key
+      const keyObject = createPrivateKey(privateKey)
+      return keyObject.export({
+        type: 'pkcs8',
+        format: 'pem'
+      }) as string
+    } catch (error) {
+      core.warning(
+        `Failed to convert private key: ${error instanceof Error ? error.message : String(error)}`
+      )
+      // Return original key if conversion fails
+      return privateKey
+    }
   }
-  
+
   // Key is already in PKCS#8 format or another format
   return privateKey
 }
