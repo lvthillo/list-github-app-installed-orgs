@@ -38584,7 +38584,8 @@ var PATHS = [
   "/marketplace_listing/stubbed/plans/{plan_id}/accounts",
   "/orgs/{org}/installation",
   "/repos/{owner}/{repo}/installation",
-  "/users/{username}/installation"
+  "/users/{username}/installation",
+  "/enterprises/{enterprise}/installation"
 ];
 function routeMatcher(paths) {
   const regexes = paths.map(
@@ -38602,6 +38603,8 @@ function requiresAppAuth(url) {
 var FIVE_SECONDS_IN_MS = 5 * 1e3;
 function isNotTimeSkewError(error) {
   return !(error.message.match(
+    /'Expiration time' claim \('exp'\) is too far in the future/
+  ) || error.message.match(
     /'Expiration time' claim \('exp'\) must be a numeric value representing the future time at which the assertion expires/
   ) || error.message.match(
     /'Issued at' claim \('iat'\) must be an Integer representing the time that the assertion was issued/
@@ -38686,7 +38689,7 @@ async function sendRequestWithRetries(state, request, options, createdAt, retrie
 }
 
 // pkg/dist-src/version.js
-var VERSION$1 = "8.1.2";
+var VERSION$1 = "8.2.0";
 function createAppAuth(options) {
   if (!options.appId) {
     throw new Error("[@octokit/auth-app] appId option is required");
