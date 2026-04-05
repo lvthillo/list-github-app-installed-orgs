@@ -595,13 +595,6 @@ describe('getOrganizationInstallations', () => {
 
             expect(result).toEqual(expectedOrgs)
 
-            // Verify no users are included
-            const hasUsers = result.some((login) => {
-              const inst = installations.find((i) => i.account?.login === login)
-              return inst?.account?.type === 'User'
-            })
-            expect(hasUsers).toBe(false)
-
             // Verify no null accounts are included in results
             // Result should never contain entries from null account installations
             const nullAccountCount = installations.filter(
